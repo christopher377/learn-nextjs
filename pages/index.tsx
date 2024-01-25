@@ -2,8 +2,19 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import { useState, useEffect } from 'react'
 
 const Home: NextPage = () => {
+  const [data, setData] = useState({name: ''})
+
+  useEffect(() => {
+    fetch('/api/hello')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+      })
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -14,7 +25,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Hello,555 Welcome
+          Hello, {data.name} !
         </h1>
 
         <p className={styles.description}>
